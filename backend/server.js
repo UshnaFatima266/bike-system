@@ -55,8 +55,9 @@ const startServer = async () => {
     if (stockMovementResult.created) {
       console.log(`Stock movement history initialized with ${stockMovementResult.created} opening records.`);
     }
-    app.listen(5000, () => {
-      console.log("Server running on port 5000");
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
     });
   } catch (error) {
     console.error("Failed to start server", error);
