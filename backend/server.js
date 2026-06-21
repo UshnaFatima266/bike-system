@@ -14,6 +14,12 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.get("/", (req, res) => {
+  res.json({
+    message: "🚀 Bike System API is running",
+    status: "OK"
+  });
+});
 
 const productRoutes = require("./routes/productRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
