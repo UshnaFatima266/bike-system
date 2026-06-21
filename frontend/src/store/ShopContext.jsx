@@ -8,7 +8,7 @@ const accents = ["red", "blue", "cyan", "yellow", "teal", "orange"];
 const badges = ["Hot Deal", "Workshop Pick", "New", "Best Seller", "Bundle", "Limited"];
 const deliveryFee = 200;
 
-const API_BASE = typeof import.meta.env?.VITE_API_URL === 'string' && import.meta.env.VITE_API_URL.trim() ? import.meta.env.VITE_API_URL.replace(/\/$/, '') : '';
+const API_BASE = typeof import.meta.env?.VITE_API_URL === 'string' && import.meta.env.VITE_API_URL.trim() ? import.meta.env.VITE_API_URL.replace(/\/$/, '') : 'https://bike-system-api.onrender.com';
 const api = (path) => `${API_BASE}${path}`;
 
 function slugify(value) {

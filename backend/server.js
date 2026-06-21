@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config({ quiet: true });
 const connectDB = require("./config/db");
@@ -12,12 +13,14 @@ const { syncCatalogAssignments } = require("./utils/syncCatalogAssignments");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.get("/", (req, res) => {
-  res.json({
+  res.status(200).json({
     message: "🚀 Bike System API is running",
-    status: "OK"
+    status: "OK",
+    timestamp: new Date().toISOString(),
+    database: mongoose.connection.readyState === 1 ? "Connected" : "Disconnected"
   });
 });
 
