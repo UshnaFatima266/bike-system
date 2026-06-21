@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { featuredPosts, products as fallbackProducts, categories as fallbackCategories } from "../data/products";
-import { API_BASE } from "../config";
+import API_BASE_URL from "../config";
 
 const ShopContext = createContext(null);
 const STORAGE_KEY = "bikex-current-user";
@@ -225,7 +225,7 @@ export function ShopProvider({ children }) {
     }
 
     try {
-      await fetch(`${API_BASE}/api/cart`, {
+      await fetch(`${API_BASE_URL}/api/cart`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -245,8 +245,8 @@ export function ShopProvider({ children }) {
         setError("");
 
         const [productsResponse, categoriesResponse] = await Promise.all([
-          fetch(`${API_BASE}/api/products`),
-          fetch(`${API_BASE}/api/categories`),
+          fetch(`${API_BASE_URL}/api/products`),
+          fetch(`${API_BASE_URL}/api/categories`),
         ]);
 
         if (!productsResponse.ok || !categoriesResponse.ok) {
@@ -292,8 +292,8 @@ export function ShopProvider({ children }) {
       try {
         setOrdersLoading(true);
         const [ordersResponse, returnsResponse] = await Promise.all([
-          fetch(`${API_BASE}/api/orders/user/${currentUser.id}`),
-          fetch(`${API_BASE}/api/orders/user/${currentUser.id}/returns`),
+          fetch(`${API_BASE_URL}/api/orders/user/${currentUser.id}`),
+          fetch(`${API_BASE_URL}/api/orders/user/${currentUser.id}/returns`),
         ]);
 
         if (!ordersResponse.ok || !returnsResponse.ok) {
@@ -325,7 +325,7 @@ export function ShopProvider({ children }) {
       }
 
       try {
-        const response = await fetch(`${API_BASE}/api/cart/${currentUser.id}`);
+        const response = await fetch(`${API_BASE_URL}/api/cart/${currentUser.id}`);
 
         if (!response.ok) {
           throw new Error("Failed to load cart");
@@ -355,7 +355,7 @@ export function ShopProvider({ children }) {
 
       try {
         setAdminLoading(true);
-        const response = await fetch(`${API_BASE}/api/orders/admin/overview`);
+        const response = await fetch(`${API_BASE_URL}/api/orders/admin/overview`);
 
         if (!response.ok) {
           throw new Error("Failed to load admin overview");
@@ -398,13 +398,13 @@ export function ShopProvider({ children }) {
           posUserResponse,
           activityLogResponse,
         ] = await Promise.all([
-          fetch(`${API_BASE}/api/admin/suppliers`),
-          fetch(`${API_BASE}/api/admin/purchases`),
-          fetch(`${API_BASE}/api/admin/expenses`),
-          fetch(`${API_BASE}/api/admin/shipments`),
-          fetch(`${API_BASE}/api/admin/returns`),
-          fetch(`${API_BASE}/api/admin/pos-users`),
-          fetch(`${API_BASE}/api/admin/activity-logs`),
+          fetch(`${API_BASE_URL}/api/admin/suppliers`),
+          fetch(`${API_BASE_URL}/api/admin/purchases`),
+          fetch(`${API_BASE_URL}/api/admin/expenses`),
+          fetch(`${API_BASE_URL}/api/admin/shipments`),
+          fetch(`${API_BASE_URL}/api/admin/returns`),
+          fetch(`${API_BASE_URL}/api/admin/pos-users`),
+          fetch(`${API_BASE_URL}/api/admin/activity-logs`),
         ]);
 
         const [supplierData, purchaseData, expenseData, shipmentData, returnData, posUserData, activityLogData] = await Promise.all([
@@ -447,8 +447,8 @@ export function ShopProvider({ children }) {
       try {
         setPosLoading(true);
         const [bootstrapResponse, reportsResponse] = await Promise.all([
-          fetch(`${API_BASE}/api/pos/bootstrap?userId=${currentUser.id}`),
-          fetch(`${API_BASE}/api/pos/reports?userId=${currentUser.id}`),
+          fetch(`${API_BASE_URL}/api/pos/bootstrap?userId=${currentUser.id}`),
+          fetch(`${API_BASE_URL}/api/pos/reports?userId=${currentUser.id}`),
         ]);
 
         const bootstrapData = await bootstrapResponse.json();
@@ -570,7 +570,7 @@ export function ShopProvider({ children }) {
     setAuthError("");
 
     try {
-      const response = await fetch(`${API_BASE}/api/auth/register`, {
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -606,7 +606,7 @@ export function ShopProvider({ children }) {
     setAuthError("");
 
     try {
-      const response = await fetch(`${API_BASE}/api/auth/login`, {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -642,7 +642,7 @@ export function ShopProvider({ children }) {
     setAuthError("");
 
     try {
-      const response = await fetch(`${API_BASE}/api/auth/pos-login`, {
+      const response = await fetch(`${API_BASE_URL}/api/auth/pos-login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -696,7 +696,7 @@ export function ShopProvider({ children }) {
 
     try {
       setAdminLoading(true);
-      const response = await fetch(`${API_BASE}/api/orders/admin/overview`);
+      const response = await fetch(`${API_BASE_URL}/api/orders/admin/overview`);
       const data = await response.json();
 
       if (!response.ok) {
@@ -730,13 +730,13 @@ export function ShopProvider({ children }) {
         posUserResponse,
         activityLogResponse,
       ] = await Promise.all([
-        fetch(`${API_BASE}/api/admin/suppliers`),
-        fetch(`${API_BASE}/api/admin/purchases`),
-        fetch(`${API_BASE}/api/admin/expenses`),
-        fetch(`${API_BASE}/api/admin/shipments`),
-        fetch(`${API_BASE}/api/admin/returns`),
-        fetch(`${API_BASE}/api/admin/pos-users`),
-        fetch(`${API_BASE}/api/admin/activity-logs`),
+        fetch(`${API_BASE_URL}/api/admin/suppliers`),
+        fetch(`${API_BASE_URL}/api/admin/purchases`),
+        fetch(`${API_BASE_URL}/api/admin/expenses`),
+        fetch(`${API_BASE_URL}/api/admin/shipments`),
+        fetch(`${API_BASE_URL}/api/admin/returns`),
+        fetch(`${API_BASE_URL}/api/admin/pos-users`),
+        fetch(`${API_BASE_URL}/api/admin/activity-logs`),
       ]);
 
       const [supplierData, purchaseData, expenseData, shipmentData, returnData, posUserData, activityLogData] = await Promise.all([
@@ -845,7 +845,7 @@ export function ShopProvider({ children }) {
     }
 
     try {
-      const response = await fetch(`${API_BASE}/api/pos/sales`, {
+      const response = await fetch(`${API_BASE_URL}/api/pos/sales`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...payload, userId: currentUser.id }),
@@ -878,7 +878,7 @@ export function ShopProvider({ children }) {
     }
 
     try {
-      const response = await fetch(`${API_BASE}/api/pos/sales/${saleId}/return`, {
+      const response = await fetch(`${API_BASE_URL}/api/pos/sales/${saleId}/return`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...payload, userId: currentUser.id }),
@@ -903,7 +903,7 @@ export function ShopProvider({ children }) {
     }
 
     try {
-      const response = await fetch(`${API_BASE}/api/pos/reports/register`, {
+      const response = await fetch(`${API_BASE_URL}/api/pos/reports/register`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...payload, userId: currentUser.id }),
@@ -967,7 +967,7 @@ export function ShopProvider({ children }) {
 
   const saveSupplier = async (payload) => {
     try {
-      const response = await fetch(`${API_BASE}/api/admin/suppliers`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/suppliers`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -988,7 +988,7 @@ export function ShopProvider({ children }) {
 
   const createPurchase = async (payload) => {
     try {
-      const response = await fetch(`${API_BASE}/api/admin/purchases`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/purchases`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -1030,7 +1030,7 @@ export function ShopProvider({ children }) {
 
   const createExpense = async (payload) => {
     try {
-      const response = await fetch(`${API_BASE}/api/admin/expenses`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/expenses`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -1051,7 +1051,7 @@ export function ShopProvider({ children }) {
 
   const saveShipment = async (payload) => {
     try {
-      const response = await fetch(`${API_BASE}/api/admin/shipments`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/shipments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -1076,7 +1076,7 @@ export function ShopProvider({ children }) {
     }
 
     try {
-      const response = await fetch(`${API_BASE}/api/admin/pos-users`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/pos-users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...payload, adminId: currentUser.id }),
@@ -1147,7 +1147,7 @@ export function ShopProvider({ children }) {
 
   const createReturn = async (payload) => {
     try {
-      const response = await fetch(`${API_BASE}/api/admin/returns`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/returns`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -1172,7 +1172,7 @@ export function ShopProvider({ children }) {
     }
 
     try {
-      const response = await fetch(`${API_BASE}/api/orders/${orderId}/returns`, {
+      const response = await fetch(`${API_BASE_URL}/api/orders/${orderId}/returns`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: currentUser.id, reason, items }),
@@ -1193,7 +1193,7 @@ export function ShopProvider({ children }) {
 
   const deleteActivityLog = async (logId) => {
     try {
-      const response = await fetch(`${API_BASE}/api/admin/activity-logs/${logId}`, { method: "DELETE" });
+      const response = await fetch(`${API_BASE_URL}/api/admin/activity-logs/${logId}`, { method: "DELETE" });
       const data = await response.json();
 
       if (!response.ok) {
@@ -1210,7 +1210,7 @@ export function ShopProvider({ children }) {
 
   const updateReturnStatus = async (returnId, status) => {
     try {
-      const response = await fetch(`${API_BASE}/api/admin/returns/${returnId}/status`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/returns/${returnId}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
@@ -1231,7 +1231,7 @@ export function ShopProvider({ children }) {
 
   const updateAdminOrderStatus = async (orderId, status) => {
     try {
-      const response = await fetch(`${API_BASE}/api/orders/${orderId}/status`, {
+      const response = await fetch(`${API_BASE_URL}/api/orders/${orderId}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
@@ -1252,7 +1252,7 @@ export function ShopProvider({ children }) {
 
   const saveProduct = async (payload, productId) => {
     try {
-      const response = await fetch(productId ? `${API_BASE}/api/products/${productId}` : `${API_BASE}/api/products`, {
+      const response = await fetch(productId ? `${API_BASE_URL}/api/products/${productId}` : `${API_BASE_URL}/api/products`, {
         method: productId ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -1273,7 +1273,7 @@ export function ShopProvider({ children }) {
 
   const removeProduct = async (productId) => {
     try {
-      const response = await fetch(`${API_BASE}/api/products/${productId}`, { method: "DELETE" });
+      const response = await fetch(`${API_BASE_URL}/api/products/${productId}`, { method: "DELETE" });
       const data = await response.json();
 
       if (!response.ok) {
@@ -1290,7 +1290,7 @@ export function ShopProvider({ children }) {
 
   const saveCategory = async (payload, categoryId) => {
     try {
-      const response = await fetch(categoryId ? `${API_BASE}/api/categories/${categoryId}` : `${API_BASE}/api/categories`, {
+      const response = await fetch(categoryId ? `${API_BASE_URL}/api/categories/${categoryId}` : `${API_BASE_URL}/api/categories`, {
         method: categoryId ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -1311,7 +1311,7 @@ export function ShopProvider({ children }) {
 
   const removeCategory = async (categoryId) => {
     try {
-      const response = await fetch(`${API_BASE}/api/categories/${categoryId}`, { method: "DELETE" });
+      const response = await fetch(`${API_BASE_URL}/api/categories/${categoryId}`, { method: "DELETE" });
       const data = await response.json();
 
       if (!response.ok) {
@@ -1342,7 +1342,7 @@ export function ShopProvider({ children }) {
     }
 
     try {
-      const response = await fetch(`${API_BASE}/api/orders`, {
+      const response = await fetch(`${API_BASE_URL}/api/orders`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
