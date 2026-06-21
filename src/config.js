@@ -1,0 +1,1 @@
+export const API_BASE = "https://bike-system-api.onrender.com";
